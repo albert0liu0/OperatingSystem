@@ -1,0 +1,37 @@
+interrupt: 硬件透過系統總線向CPU發出信號/軟體呼叫system call
+
+interrupt vector: 一個表，maps interrupt request to address of interrupt handlers
+
+instruction register: 儲存當前解碼/執行的instruction
+
+program counter: 儲存下一個instruction 的address
+
+device controller: 連接裝置跟操作系統。有local buffer跟command register
+    透過匯流排發送 interrupt
+
+interrupt handling: 分為polling interrupt system 跟vectored interrupt system
+
+Polled interrupt:
+    不斷輪流詢問interrupt 是由哪一個裝置發出
+
+vectored interrupt:
+    interrupt 本身就有指出是哪個裝置發出、以及interrupt handler的位置
+
+Asynchronous I/O:
+    等待I/O時，繼續做其他程序，當I/O結束時發送interrupt，所以需要device-status table，紀錄每個device收到哪些request
+
+Direct memory access structure
+    讓高速的IO裝置可以直接存取memory，不須透過CPU。一次的interrupt可以傳輸一個block的資料。
+
+storage device hierarchy:
+    從高速到低速：
+        registers, cache, main memory, electronic disk, magnetic disk, optical disk, megnetic tapes
+        
+Cache:
+    將資料在storage device hierarchy上從慢的移到快的
+    使用資料時，在快的storage檢查資料在不在這，如果不在，把他從慢的地方移過來用
+
+Graceful degration, fault tolerance:
+    系統能無視錯誤繼續運行的能力，適度降級
+
+
