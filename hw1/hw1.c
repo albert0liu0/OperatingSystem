@@ -12,7 +12,12 @@ struct processlist{
     processData* list;
 };
 typedef struct processlist processList;
+void timeUnit(int n){
+    for(int j=0;j<n;j++)
+        volatile unsigned long i; for(i=0;i<1000000UL;i++);
+}
 int scheduleByFIFO(processList pl){
+    
 }
 int scheduleByRR(processList pl){
 }
@@ -20,7 +25,14 @@ int scheduleBySJF(processList pl){
 }
 int scheduleByPSJF(processList pl){
 }
+int cmp(void* a,void* b){
+    list* la=(list*)a;
+    list* lb=(list*)b;
+    if((la->readyTime)<(lb->readyTime))return -1;
+    if((la->readyTime)>(lb->readyTime))return 1;
+    return 0;
 
+}
 int main(){
     char schedulePolicy[5];
     scanf("%s",schedulePolicy);
@@ -33,6 +45,7 @@ int main(){
         scanf("%d",&pl.list[i].readyTime);
         scanf("%d",&pl.list[i].executionTime);
     }
+    qsort(pl.list,pl.list+pl.number,cmp);
     if(strcmp(schedulePolicy,"FIFO")==0)scheduleByFIFO(pl);
     if(strcmp(schedulePolicy,"RR")==0)scheduleByRR(pl);
     if(strcmp(schedulePolicy,"SJF")==0)scheduleBySJF(pl);
