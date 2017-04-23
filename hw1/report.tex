@@ -59,8 +59,9 @@
         A counter {\tt cnt} is recorded, starting at zero. {\tt cnt} increases after each time unit. Once {\tt cnt} reaches 500, set {\tt cnt} back to zero, {\tt S} idles the currently executing process, and let {\tt st} point the next unfinished process and awake it. However, if the currently executing process terminates before {\tt cnt} reaches 500, then also set {\tt cnt} back to zero, and let {\tt st} point the next unfinished process and awake it.
 
     \subsection{SJF and PSJF}
-        We construct a pointer {\tt ed} just like before. Also, a integer {\tt st} stores the number of terminated process. Once a process terminates, {\tt st} increases by 1.
+        We construct a pointer {\tt ed} just like before. Also, an integer {\tt st} stores the number of terminated process. Once a process terminates, {\tt st} increases by 1.
 
         As long as we need to decide which process to awake, we choose the forked but unfinished process with shortest estimated remain executing time. The remain executing time of a process {\tt P} is estimated by substracting the original executing time by the real executed time.
         
+        In SJF, we need to decide which process to awake when the currently executing process terminates, while in PSJF, we also need to decide when a new child process is forked.
 \end{document}　
