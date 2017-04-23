@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage{fontspec,xunicode}
+\usepackage{fontenc}
+\usepackage{titlesec}
+\usepackage{amsmath} 
+\usepackage{graphicx}
+%\usepackage{nopageno}
+%\usepackage{ulem}
+\usepackage{xeCJK}
+
+\setCJKmainfont{AR PL UKai TW}
+\titleformat{\section}[hang]
+{\normalfont\LARGE\bfseries}{\thesection}{0.5em}{}
+%\XeTeXlinebreaklocale "zh"
+%\usepackage{type1cm}
+\begin{document}
+\fontsize{12pt}{20pt}\selectfont
+\begin{center}
+	\bfseries\huge{Operating System Project 1 Report}\\
+\end{center}
+{
+    \hfill B04902012 劉瀚聲
+
+    \hfill B04902032 馬揚格
+
+    \hfill B04902040 王郁婷
+
+    \hfill B04902080 徐琮賀\\
+}
+\section{Design}
+    \subsection*{Main Structure}
+
+        For each process, it's attribute (ready time, execution time, start time and process id) is stored in a structure {\tt processData}.
+        A structure {\tt processList} is constructed to maintain a list of {\tt processData}, while processes in it are sorted by ready time.
+
+        The scheduler process {\tt S} itself is limited to run on CPU 0 with lowest nice value -20 at the beginning. Once a child process {\tt P} is forked, {\tt P} will limit itself to run on CPU 1, and it's nice value is determined by scheduling principle. After finishing setting these property, {\tt P} then execute {\tt ./child}, a process that will run million empty iterations for \(n\) times, while \(n\) is passed through {\tt argv[1]}.
+
+        To schedule, {\tt S} idles a process {\tt P1} and awake another process {\tt P2} by setting nice value of {\tt P1}  to 19 and setting nice value of {\tt P2} to -20. Child processes won't compete with {\tt S} for CPU resources because they are affined to different 
+        
+\end{document}　
