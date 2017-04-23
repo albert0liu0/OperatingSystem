@@ -42,9 +42,13 @@
     \subsection{FIFO}
         Maintain two pointer {\tt st} and {\tt ed} pointing to elements in {\tt processList}. They are both pointing the first process at the beginning.
         
-        {\tt S} checks if the process pointed by {\tt ed} is ready every time unit. Once the child process is ready and forked, {\tt ed} moves right.
+        {\tt S} checks if the process pointed by {\tt ed} is ready every time unit. Once the child process is ready , {\tt S} forks it, and {\tt ed} moves right. {\tt S} waits non-blockingly for the process pointed by {\tt st} every time unit. Once the child process terminates, {\tt st} moves right.
 
-        {\tt S} waits non-blockingly for the process pointed by {\tt st} every time unit. Once the child process terminates, {\tt st} moves right.
+        A process is awaken if: 
 
+        (1) It is pointed by {\tt S} and has been forked.
 
+        (2) It is forked and {\tt st} and {\tt ed} are pointing the same process.
+
+        Actually, the processes between {\tt st} and {\tt ed-1} forms the ready queue.
 \end{document}　
