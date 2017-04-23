@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
 \usepackage{hyperref}
 \usepackage{fontspec,xunicode}
 \usepackage{fontenc}
@@ -10,8 +11,8 @@
 \usepackage{xeCJK}
 
 \setCJKmainfont{AR PL UKai TW}
-\titleformat{\section}[hang]
-{\normalfont\LARGE\bfseries}{\thesection}{0.5em}{}
+\titleformat{\section}[hang]{\normalfont\LARGE\bfseries}{\thesection}{0.5em}{}
+\titleformat{\subsection}[hang]{\normalfont\large\bfseries}{　\thesubsection}{0.5em}{}
 %\XeTeXlinebreaklocale "zh"
 %\usepackage{type1cm}
 \begin{document}
@@ -29,13 +30,21 @@
     \hfill B04902080 徐琮賀\\
 }
 \section{Design}
-    \subsection*{Main Structure}
+    \subsection{Main Structure}
 
         For each process, it's attribute (ready time, execution time, start time and process id) is stored in a structure {\tt processData}.
         A structure {\tt processList} is constructed to maintain a list of {\tt processData}, while processes in it are sorted by ready time.
 
-        The scheduler process {\tt S} itself is limited to run on CPU 0 with lowest nice value -20 at the beginning. Once a child process {\tt P} is forked, {\tt P} will limit itself to run on CPU 1, and it's nice value is determined by scheduling principle. After finishing setting these property, {\tt P} then execute {\tt ./child}, a process that will run million empty iterations for \(n\) times, while \(n\) is passed through {\tt argv[1]}.
+        The scheduler process {\tt S} itself is limited to run on CPU 0 with lowest nice value -20 at the beginning. Once a child process {\tt P} is forked, {\tt P} will limit itself to run on CPU 1, and it's nice value is determined by scheduling principle. After finishing setting these property, {\tt P} then execute {\tt ./child}, a process that will run million empty iterations for \(n\) times, while \(n\) is passed through {\tt argv[1]}. To make {\tt P} be able to print it's own name, it's name is passed through {\tt argv[2]}.
 
-        To schedule, {\tt S} idles a process {\tt P1} and awake another process {\tt P2} by setting nice value of {\tt P1}  to 19 and setting nice value of {\tt P2} to -20. Child processes won't compete with {\tt S} for CPU resources because they are affined to different 
+        To schedule, {\tt S} idles a process {\tt P1} and awake another process {\tt P2} by setting nice value of {\tt P1}  to 19 and setting nice value of {\tt P2} to -20. Child processes won't compete with {\tt S} for CPU resources because they are affined to different CPU.
+    
+    \subsection{FIFO}
+        Maintain two pointer {\tt st} and {\tt ed} pointing to elements in {\tt processList}. They are both pointing the first process at the beginning.
         
+        {\tt S} checks if the process pointed by {\tt ed} is ready every time unit. Once the child process is ready and forked, {\tt ed} moves right.
+
+        {\tt S} waits non-blockingly for the process pointed by {\tt st} every time unit. Once the child process terminates, {\tt st} moves right.
+
+
 \end{document}　
