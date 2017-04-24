@@ -6,6 +6,7 @@
 \usepackage{titlesec}
 \usepackage{amsmath} 
 \usepackage{graphicx}
+\usepackage{pgfgantt}
 %\usepackage{nopageno}
 %\usepackage{ulem}
 \usepackage{xeCJK}
@@ -32,16 +33,16 @@
 \section{Design}
     \subsection{Main Structure}
 
-        For each process, it's attributes (ready time, execution time, start time and process id) are stored in a structure {\tt processData}.
+        For each process, its attributes (ready time, execution time, start time and process id) are stored in a structure {\tt processData}.
         A structure {\tt processList} is constructed to maintain a list of {\tt processData}, while processes in it are sorted by ready time.
 
-        The scheduler process {\tt S} itself is limited to run on CPU 0 with lowest nice value -20 at the beginning. Once a child process {\tt P} is forked, {\tt P} will limit itself to run on CPU 1, and it's nice value is determined by scheduling principle. After finishing setting these property, {\tt P} then executes {\tt ./child}, a process that will run million empty iterations for \(n\) times, with \(n\) passed through {\tt argv[1]}. To make {\tt P} be able to print it's own name, it's name is passed through {\tt argv[2]}.
+        The scheduler process {\tt S} itself is limited to run on CPU 0 with lowest nice value -20 at the beginning. Once a child process {\tt P} is forked, {\tt P} will limit itself to run on CPU 1, and its nice value is determined by scheduling principle. After finishing setting these property, {\tt P} then executes {\tt ./child}, a process that will run million empty iterations for \(n\) times, with \(n\) passed through {\tt argv[1]}. To make {\tt P} able to print it's own name, it's name is passed through {\tt argv[2]}.
 
 
         To schedule, {\tt S} idles a process {\tt P1} and awake another process {\tt P2} by setting nice value of {\tt P1}  to 19 and setting nice value of {\tt P2} to -20. Child processes won't compete with {\tt S} for CPU resources because they are affined to different CPU.
     
     \subsection{FIFO}
-        We construct two pointers {\tt st} and {\tt ed} pointing to processes in {\tt processList}. They both pointing the first process at the beginning. {\tt st} is maintained to point the executing process (if exists), and {\tt ed} is maintained to point the first unforked process.
+        We construct two pointers {\tt st} and {\tt ed} pointing to processes in {\tt processList}, both pointing to the first process at the beginning. {\tt st} is maintained to point to the executing process (if exists), and {\tt ed} is maintained to point to the first unforked process.
         
         {\tt S} checks if the process pointed by {\tt ed} is ready every time unit. Once the child process is ready , {\tt S} forks it, and {\tt ed} moves right. {\tt S} waits non-blockingly for the process pointed by {\tt st} every time unit. Once the child process terminates, {\tt st} moves right.
 
@@ -49,19 +50,57 @@
 
         (1) It is pointed by {\tt st} and has been forked.
 
-        (2) It is forked and {\tt st} and {\tt ed} are pointing the same process.
+        (2) It is forked and {\tt st} and {\tt ed} are pointing to the same process.
 
         Actually, the processes between {\tt st+1} and {\tt ed-1} forms the ready queue.
 
     \subsection{Round Robin}
-        We construct two pointers {\tt st} and {\tt ed} pointing to processes in {\tt processList}. They both pointing the first process at the beginning. {\tt st} is maintained to point the executing process (if exists), and {\tt ed} is maintained to point the first unforked process, just like that in FIFO.
+        We construct two pointers {\tt st} and {\tt ed} pointing to processes in {\tt processList}, both pointing to the first process at the beginning. {\tt st} is maintained to point to the executing process (if exists), and {\tt ed} is maintained to point to the first unforked process, as in FIFO.
 
-        A counter {\tt cnt} is recorded, starting at zero. {\tt cnt} increases after each time unit. Once {\tt cnt} reaches 500, {\tt cnt} is set back to zero, {\tt S} idles the currently executing process, and let {\tt st} point the next unfinished process and awake it. However, if the currently executing process terminates before {\tt cnt} reaches 500, then {\tt cnt} is also back to zero, and let {\tt st} point the next unfinished process and awake it.
+        A counter {\tt cnt} is recorded, starting at zero, and increases after each time unit. Once {\tt cnt} reaches 500, {\tt cnt} is set back to zero, {\tt S} idles the currently executing process, and let {\tt st} point to the next unfinished process and awake it. However, if the currently executing process terminates before {\tt cnt} reaches 500, then {\tt cnt} is also back to zero, and let {\tt st} point the next unfinished process and awake it.
 
     \subsection{SJF and PSJF}
         We construct a pointer {\tt ed} just like before. Also, an integer {\tt st} stores the number of terminated process. Once a process terminates, {\tt st} increases by 1.
 
-        As long as we need to decide which process to awake, we choose the forked but unfinished process with shortest estimated remain executing time. The remain executing time of a process {\tt P} is estimated by substracting the original executing time by the real executed time.
+        Once we need to decide which process to awake, we choose the forked but unfinished process with shortest estimated remain execution time. The remain execution time of a process {\tt P} is estimated by substracting the real executing time from the original declared executing time.
         
-        In SJF, we need to decide which process to awake when the currently executing process terminates, while in PSJF, we also need to decide when a new child process is forked.
+        In SJF, we need to decide which process to awake when the currently executing process terminates, while in PSJF, we also need to decide whenever a new child process is forked.
+
+\section{Theoretical Result}
+    We represent the result by listing n lines, while n is the number of child processes, one line for each process. A line includes the name, the starting time (units) and finishing time of each process. We briefly choose only the last testcase for each scheduling principle.\\\\
+    {\tt FIFO\_3.txt}:\\
+        P1 0 7999\\
+        P2 8000 12999\\
+        P3 13000 15999\\
+        P4 16000 16999\\
+        P5 17000 17999\\
+        P6 18000 18999\\
+        P6 19000 22999\\\\
+    {\tt RR\_3.txt}:\\
+        P3 4200 18199\\
+        P1 1200 20199\\
+        P2 2700 20699\\
+        P6 7200 28199\\
+        P5 6700 30199\\
+        P4 6200 31199\\\\
+    {\tt SJF\_3.txt}:\\
+        P1 100 3099\\
+        P4 3100 3109\\
+        P5 3110 3119\\
+        P6 3120 7119\\
+        P7 7120 11119\\
+        P2 11120 16119\\
+        P3 16120 23119\\
+        P8 23120 32119\\\\
+    {\tt PSJF\_3.txt}:\\
+        P2 500 999\\
+        P3 1000 1499\\
+        P4 1500 1999\\
+        P1 0 3499\\\\
+
+\section{Contribution Distribution}
+    劉瀚聲：
+    馬揚格：
+    王郁婷：
+    徐琮賀：
 \end{document}　
