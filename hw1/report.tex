@@ -35,7 +35,7 @@
         For each process, it's attributes (ready time, execution time, start time and process id) are stored in a structure {\tt processData}.
         A structure {\tt processList} is constructed to maintain a list of {\tt processData}, while processes in it are sorted by ready time.
 
-        The scheduler process {\tt S} itself is limited to run on CPU 0 with lowest nice value -20 at the beginning. Once a child process {\tt P} is forked, {\tt P} will limit itself to run on CPU 1, and it's nice value is determined by scheduling principle. After finishing setting these property, {\tt P} then execute {\tt ./child}, a process that will run million empty iterations for \(n\) times, with \(n\) passed through {\tt argv[1]}. To make {\tt P} be able to print it's own name, it's name is passed through {\tt argv[2]}.
+        The scheduler process {\tt S} itself is limited to run on CPU 0 with lowest nice value -20 at the beginning. Once a child process {\tt P} is forked, {\tt P} will limit itself to run on CPU 1, and it's nice value is determined by scheduling principle. After finishing setting these property, {\tt P} then executes {\tt ./child}, a process that will run million empty iterations for \(n\) times, with \(n\) passed through {\tt argv[1]}. To make {\tt P} be able to print it's own name, it's name is passed through {\tt argv[2]}.
 
 
         To schedule, {\tt S} idles a process {\tt P1} and awake another process {\tt P2} by setting nice value of {\tt P1}  to 19 and setting nice value of {\tt P2} to -20. Child processes won't compete with {\tt S} for CPU resources because they are affined to different CPU.
