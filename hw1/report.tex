@@ -155,13 +155,19 @@
                 P1 1493065432.580471591 1493065439.738848908
             }
         \end{parcolumns}
+        \rmfamily
+
+        We can see from the results shown above that execpt for RR scheduling, the other three scheduling have the same results of the finish sequence of the processes in our output and the theoretical result we computed.
+
+        The reason why the difference might exist is that in RR scheduling, the parent process switches the child processes each time the counter used to count the time units passed in the parent process exceeds the time quantum(500 in this case), while not knowing whether the same number of time units has passed in the child process or not.  Consequently, we can not predict precisely when a process will end and thus not able to determine the finish sequence of the processes in the real RR scheduling.
+
 \section{Contribution Distribution}
     \begin{table}[H]
     \large
     \begin{tabular}{ll}
     劉瀚聲：&Report: creating, calculating expected results\\
     　　　　&Code: main function and structure, child process\\
-    馬揚格：&Code: system call, FIFO scheduling\\
+    馬揚格：&Code: implementing system call, FIFO scheduling\\
     王郁婷：&Report: calculating expected results\\
     　　　　&Code: RR scheduling\\
     徐琮賀：&Code: SJF and PSJF scheduling\\
