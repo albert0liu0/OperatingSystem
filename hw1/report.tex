@@ -7,6 +7,8 @@
 \usepackage{amsmath} 
 \usepackage{graphicx}
 \usepackage{pgfgantt}
+\usepackage{parcolumns  }
+\usepackage{float}
 %\usepackage{nopageno}
 %\usepackage{ulem}
 \usepackage{xeCJK}
@@ -67,40 +69,102 @@
         In SJF, we need to decide which process to awake when the currently executing process terminates, while in PSJF, we also need to decide whenever a new child process is forked.
 
 \section{Theoretical Result}
-    We represent the result by listing n lines, while n is the number of child processes, one line for each process. A line includes the name, the starting time (units) and finishing time of each process. We briefly choose only the last testcase for each scheduling principle.\\\\
-    {\tt FIFO\_3.txt}:\\
-        P1 0 7999\\
-        P2 8000 12999\\
-        P3 13000 15999\\
-        P4 16000 16999\\
-        P5 17000 17999\\
-        P6 18000 18999\\
-        P6 19000 22999\\\\
-    {\tt RR\_3.txt}:\\
-        P3 4200 18199\\
-        P1 1200 20199\\
-        P2 2700 20699\\
-        P6 7200 28199\\
-        P5 6700 30199\\
-        P4 6200 31199\\\\
-    {\tt SJF\_3.txt}:\\
-        P1 100 3099\\
-        P4 3100 3109\\
-        P5 3110 3119\\
-        P6 3120 7119\\
-        P7 7120 11119\\
-        P2 11120 16119\\
-        P3 16120 23119\\
-        P8 23120 32119\\\\
-    {\tt PSJF\_3.txt}:\\
-        P2 500 999\\
-        P3 1000 1499\\
-        P4 1500 1999\\
-        P1 0 3499\\\\
+    We represent the result by listing n lines, while n is the number of child processes, one line for each process. A line includes the name, the starting time (units) and finishing time of each process. We briefly choose only the last testcase for each scheduling principle. The left column is the expected result, while the right column is the real result. Each result is represented by 3 string, name of processes, starting execution time, and finishing execution time. The time unit of expected results is the same as input, while the time unit of real results is nanosecond.\\\\
+    
+        \ttfamily
 
+        {\noindent\bfseries FIFO\_3.txt:}
+        \begin{parcolumns}[nofirstindent, colwidths={1=.2\linewidth}, rulebetween=true]{2}
+            \colchunk[1]{%
+                P1 0 7999\\
+                P2 8000 12999\\
+                P3 13000 15999\\
+                P4 16000 16999\\
+                P5 17000 17999\\
+                P6 18000 18999\\
+                P6 19000 22999
+            }
+            \colchunk[2]{%
+                P1 1493065028.196616382 1493065044.205663952\\
+                P2 1493065028.669497706 1493065054.619804524\\
+                P3 1493065028.797498116 1493065061.119574122\\
+                P4 1493065028.998274853 1493065063.525177652\\
+                P5 1493065029.189938795 1493065065.956369779\\
+                P6 1493065029.285423430 1493065068.458171224\\
+                P6 1493065029.397933143 1493065076.564132067
+            }
+        \end{parcolumns}
+
+        {\noindent\bfseries RR\_3.txt:}
+        \begin{parcolumns}[nofirstindent, colwidths={1=.2\linewidth}, rulebetween=true]{2}
+            \colchunk[1]{%
+                P3 4200 18199\\
+                P1 1200 20199\\
+                P2 2700 20699\\
+                P6 7200 28199\\
+                P5 6700 30199\\
+                P4 6200 31199
+            }
+            \colchunk[2]{%
+                P3 1493065117.721537651 1493065162.698014685\\
+                P2 1493065115.421440165 1493065166.369149774\\
+                P1 1493065113.116603589 1493065170.6872949\\
+                P6 1493065121.953934253 1493065190.427482526\\
+                P5 1493065120.777512321 1493065193.764699366\\
+                P4 1493065120.13402939 1493065195.120458270
+            }
+        \end{parcolumns}
+
+
+        {\noindent\bfseries SJF\_3.txt:}
+        \begin{parcolumns}[nofirstindent, colwidths={1=.2\linewidth}, rulebetween=true]{2}
+            \colchunk[1]{%
+                P1 100 3099\\
+                P4 3100 3109\\
+                P5 3110 3119\\
+                P6 3120 7119\\
+                P7 7120 11119\\
+                P2 11120 16119\\
+                P3 16120 23119\\
+                P8 23120 32119
+            }
+            \colchunk[2]{%
+                P1 1493065299.596460952 1493065305.383947051\\
+                P4 1493065300.1547981 1493065305.400244388\\
+                P5 1493065300.73337982 1493065305.429877079\\
+                P6 1493065300.5338934 1493065313.97858228\\
+                P7 1493065300.213499687 1493065320.736832319\\
+                P2 1493065300.21832565 1493065330.299326131\\
+                P3 1493065300.69470871 1493065343.641767236\\
+                P8 1493065300.405467985 1493065360.742870254
+            }
+        \end{parcolumns}
+
+        {\noindent\bfseries PSJF\_3.txt:}
+        \begin{parcolumns}[nofirstindent, colwidths={1=.2\linewidth}, rulebetween=true]{2}
+            \colchunk[1]{%
+                P2 500 999\\
+                P3 1000 1499\\
+                P4 1500 1999\\
+                P1 0 3499
+            }
+            \colchunk[2]{%
+                P2 1493065433.524447760 1493065434.506524721\\
+                P3 1493065434.508243367 1493065435.489155267\\
+                P4 1493065435.491027503 1493065436.469196007\\
+                P1 1493065432.580471591 1493065439.738848908
+            }
+        \end{parcolumns}
 \section{Contribution Distribution}
-    劉瀚聲：
-    馬揚格：
-    王郁婷：
-    徐琮賀：
+    \begin{table}[H]
+    \large
+    \begin{tabular}{ll}
+    劉瀚聲：&Report: creating, calculating expected results\\
+    　　　　&Code: main function and structure, child process\\
+    馬揚格：&Code: system call, FIFO scheduling\\
+    王郁婷：&Report: calculating expected results\\
+    　　　　&Code: RR scheduling\\
+    徐琮賀：&Code: SJF and PSJF scheduling\\
+    \end{tabular}
+    \end{table}
 \end{document}　
