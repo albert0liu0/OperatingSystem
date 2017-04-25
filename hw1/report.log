@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016/Arch Linux) (preloaded format=xelatex 2017.3.29)  26 APR 2017 07:33
+This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016/Arch Linux) (preloaded format=xelatex 2017.3.29)  26 APR 2017 07:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1547,48 +1547,49 @@ File: eu1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [1
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 72--73
+Underfull \hbox (badness 10000) in paragraph at lines 73--74
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 72--73
+Underfull \hbox (badness 10000) in paragraph at lines 73--74
 
  []
 
 [2]
 LaTeX Font Info:    Font shape `EU1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 76.
+(Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 77.
 \pc@column@1=\box65
 \pc@column@width@1=\dimen295
 \pc@column@2=\box66
 \pc@column@width@2=\dimen296
-Package parcolumns Info: Width of column 1 set to 86.72267pt on input line 77.
+Package parcolumns Info: Width of column 1 set to 86.72267pt on input line 78.
 Package parcolumns Info: Width of column 2 calculated as 322.89732pt on input l
-ine 77.
-Package parcolumns Info: Width of column 1 set to 86.72267pt on input line 99.
-Package parcolumns Info: Width of column 2 calculated as 322.89732pt on input l
-ine 99.
-Package parcolumns Info: Width of column 1 set to 86.72267pt on input line 120.
+ine 78.
+Package parcolumns Info: Width of column 1 set to 86.72267pt on input line 100.
 
 Package parcolumns Info: Width of column 2 calculated as 322.89732pt on input l
-ine 120.
+ine 100.
+Package parcolumns Info: Width of column 1 set to 86.72267pt on input line 121.
+
+Package parcolumns Info: Width of column 2 calculated as 322.89732pt on input l
+ine 121.
  [3]
-Package parcolumns Info: Width of column 1 set to 86.72267pt on input line 144.
+Package parcolumns Info: Width of column 1 set to 86.72267pt on input line 145.
 
 Package parcolumns Info: Width of column 2 calculated as 322.89732pt on input l
-ine 144.
+ine 145.
  [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 176.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 176.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 177.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 177.
  (./report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 176.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 176.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 177.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 177.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 176.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 177.
  ) 
 Here is how much of TeX's memory you used:
  36326 strings out of 493589
