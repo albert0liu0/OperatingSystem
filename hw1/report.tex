@@ -64,7 +64,7 @@
     \subsection{SJF and PSJF}
         We construct a pointer {\tt ed} just like before. Also, an integer {\tt st} stores the number of terminated process. Once a process terminates, {\tt st} increases by 1.
 
-        Once we need to decide which process to awake, we choose the forked but unfinished process with shortest estimated remain execution time. The remain execution time of a process {\tt P} is estimated by substracting the real executing time from the original declared executing time.
+        Once we need to decide which process to awake, we choose the forked but unfinished process with shortest estimated remain execution time. The remain execution time of a process {\tt P} is estimated by substracting the elapsed time from the original declared executing time.
         
         In SJF, we need to decide which process to awake when the currently executing process terminates, while in PSJF, we also need to decide whenever a new child process is forked.
 
